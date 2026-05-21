@@ -10,6 +10,272 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Pricing Calculator Styles -->
+  <style>
+    /* ── Wrapper ─────────────────────────────────────────────── */
+    .estimator-wrap {
+      max-width: 880px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .calc {
+      background: linear-gradient(180deg, #18181c 0%, #131316 100%);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 28px 28px 24px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .calc::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 70% 60% at 110% 0%, rgba(197,161,74,.10), transparent 60%);
+    }
+
+    /* ── LEFT: Truck visual ──────────────────────────────────── */
+    .calc-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .visual-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .calc-eyebrow {
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .live-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #74e088;
+      box-shadow: 0 0 8px #74e088;
+      animation: livepulse 1.6s ease-in-out infinite;
+    }
+    @keyframes livepulse { 0%,100% { opacity:1 } 50% { opacity:.35 } }
+
+    .truck-stage {
+      flex: 1;
+      min-height: 220px;
+      border-radius: 14px;
+      padding: 14px;
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 100%, rgba(197,161,74,.12), transparent 65%),
+        linear-gradient(180deg, #0e0e11 0%, #0a0a0c 100%);
+      border: 1px solid rgba(197,161,74,.18);
+      overflow: hidden;
+      position: relative;
+    }
+    .truck-stage::after {
+      content: "";
+      position: absolute;
+      left: 6%; right: 6%; bottom: 38px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(197,161,74,.35), transparent);
+    }
+    .truck {
+      position: absolute;
+      left: 50%; bottom: 18px;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 380px;
+      aspect-ratio: 380 / 200;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.6));
+    }
+    .bed-clip {
+      position: absolute;
+      left: 5.8%; top: 14%;
+      width: 60.5%; height: 56%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .junk-pile {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 0%;
+      transition: height .9s cubic-bezier(.22,.61,.36,1);
+      background:
+        linear-gradient(180deg, transparent 0%, transparent 18%, rgba(0,0,0,.25) 18.5%, transparent 19%),
+        radial-gradient(ellipse 12% 18% at 14% 25%, var(--gold-light) 60%, transparent 62%),
+        radial-gradient(ellipse 10% 14% at 36% 12%, var(--gold)       60%, transparent 62%),
+        radial-gradient(ellipse 14% 20% at 60% 28%, var(--gold-deep)  60%, transparent 62%),
+        radial-gradient(ellipse 11% 16% at 84% 18%, var(--gold-light) 60%, transparent 62%),
+        linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 22%, var(--gold-deep) 65%, #6b5320 100%);
+      clip-path: polygon(
+        0% 100%, 0% 0%,
+        10% 7%,  22% 0%,
+        34% 9%,  46% 0%, 58% 8%,
+        70% 0%,  82% 10%, 94% 2%,
+        100% 0%, 100% 100%
+      );
+      opacity: .95;
+    }
+    .float-box {
+      position: absolute;
+      width: 14px; height: 11px;
+      border-radius: 2px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      box-shadow: 0 4px 8px rgba(0,0,0,.35);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .35s ease, transform .55s cubic-bezier(.22,.61,.36,1);
+    }
+
+    /* Load size buttons */
+    .load-ticks {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .load-tick {
+      appearance: none; -webkit-appearance: none; border: none;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      color: #8a8a96;
+      font-family: inherit; font-size: 10.5px; font-weight: 600;
+      letter-spacing: .04em;
+      padding: 9px 4px; border-radius: 8px;
+      cursor: pointer;
+      transition: background .25s ease, color .25s ease, border-color .25s ease;
+    }
+    .load-tick small {
+      display: block;
+      font-weight: 500; opacity: .6;
+      margin-top: 1px; font-size: 9.5px;
+    }
+    .load-tick:hover { color: #fff; border-color: rgba(197,161,74,.3); }
+    .load-tick.active {
+      color: #141410;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-color: var(--gold);
+      box-shadow: 0 6px 16px rgba(197,161,74,.32);
+    }
+    .load-tick.active small { opacity: .7; color: #2c2410; }
+
+    /* ── RIGHT: Price panel ──────────────────────────────────── */
+    .calc-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .price-block {
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(197,161,74,.2);
+      border-radius: 14px;
+      padding: 16px 18px 18px;
+    }
+    .price-tier-name {
+      font-family: "Playfair Display", serif;
+      font-size: 22px; font-weight: 700;
+      color: #fff; margin: 2px 0 0;
+    }
+    .price-tier-for {
+      color: #8a8a96; font-size: 12px;
+      margin: 4px 0 12px;
+    }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .price-display {
+      font-family: "Playfair Display", serif;
+      font-weight: 800; font-size: 38px;
+      color: var(--gold); line-height: 1;
+      font-variant-numeric: tabular-nums;
+      display: inline-flex; align-items: baseline;
+    }
+    .price-display .currency { font-size: 20px; margin-right: 2px; opacity: .85; }
+    .price-display .digits {
+      display: inline-block; position: relative;
+      transition: opacity .25s ease, transform .35s cubic-bezier(.22,.61,.36,1), filter .25s ease;
+    }
+    .price-display .digits.swap {
+      opacity: 0; transform: translateY(-6px); filter: blur(2px);
+    }
+    .price-suffix { color: #8a8a96; font-size: 11px; font-weight: 500; }
+
+    /* Add-on chips */
+    .chips-label {
+      color: #8a8a96; font-size: 10.5px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 10px; border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.10);
+      color: #d8d8e0; font-size: 11.5px; font-weight: 500;
+      cursor: pointer; user-select: none;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .chip::before {
+      content: "+"; color: var(--gold);
+      font-weight: 700; font-size: 13px; line-height: 1;
+    }
+    .chip:hover { border-color: rgba(197,161,74,.45); color: #fff; }
+    .chip.on { background: rgba(197,161,74,.14); border-color: var(--gold); color: #fff; }
+    .chip.on::before { content: "✓"; font-size: 11px; }
+    .chip .delta { color: var(--gold); font-weight: 600; font-size: 11px; }
+
+    /* CTA row inside calc */
+    .calc-cta-row { margin-top: auto; display: flex; gap: 8px; align-items: center; }
+    .calc-cta {
+      flex: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 16px; border-radius: 999px; border: none; cursor: pointer;
+      font-family: inherit; font-weight: 600; font-size: 13px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #141410;
+      box-shadow: 0 6px 18px rgba(197,161,74,.32);
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .25s ease;
+    }
+    .calc-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(197,161,74,.45); color: #141410; }
+    .calc-cta-secondary {
+      background: transparent; color: var(--gold);
+      border: 1px solid rgba(197,161,74,.4); box-shadow: none;
+      flex: 0 0 auto; padding: 12px 16px;
+    }
+    .calc-cta-secondary:hover { background: rgba(197,161,74,.08); box-shadow: none; }
+    .calc-footnote { font-size: 10.5px; color: #8a8a96; margin: 0; line-height: 1.5; }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .calc { grid-template-columns: 1fr; padding: 18px; gap: 20px; }
+      .truck-stage { min-height: 200px; }
+      .load-ticks { gap: 4px; }
+      .load-tick { font-size: 9.5px; padding: 8px 2px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -37,7 +303,6 @@
     </nav>
 
     <div class="header-actions">
-      <!-- PHONE: replace tel:+16040000000 -->
       <a class="btn btn-outline-dark btn-sm" href="tel:+17789384235">Call Now</a>
       <a class="btn btn-gold btn-sm" href="#estimate">Get Estimate</a>
     </div>
@@ -61,7 +326,7 @@
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════
-       HOW PRICING WORKS
+       PRICING — ANIMATED TRUCK LOAD ESTIMATOR
        ══════════════════════════════════════════════════════════════ -->
   <section class="section section-dark">
     <div class="container">
@@ -72,78 +337,205 @@
       </div>
 
       <div class="pricing-intro-box">
-        Junk removal pricing is usually based on how much space your items take in the truck,
-        the type of material, labour required, stairs or carry distance, and disposal/recycling
-        fees. We provide an upfront estimate before starting, so you know exactly what to expect
-        with no hidden charges.
+        Junk removal pricing is based on how much space your items take in the truck,
+        the type of material, labour required, stairs or carry distance, and disposal fees.
+        Use the estimator below to build your quote — final price is always confirmed
+        on-site before any work begins.
       </div>
 
-      <!-- Pricing Cards -->
-      <!--
-        PRICES: Replace $XX and $XXX with your actual starting prices.
-        Example: Small = $75, Medium = $175
-      -->
-      <div class="pricing-cards">
+      <!-- ── Animated Truck Load Estimator ── -->
+      <div class="estimator-wrap">
+        <div class="calc">
 
-        <div class="pricing-card">
-          <span class="pricing-card-badge">Small</span>
-          <h3>Small Pickup</h3>
-          <p class="pricing-card-for">Best for 1–3 items</p>
-          <div class="pricing-price">
-            <!-- PRICE: replace $XX with your starting price -->
-            <span class="amount">$75-100</span>
-            <span class="label">starting price</span>
+          <!-- LEFT: truck visual + load size buttons -->
+          <div class="calc-visual">
+            <div class="visual-head">
+              <span class="calc-eyebrow">Load Estimator</span>
+              <span class="live-pill">Live price</span>
+            </div>
+
+            <div class="truck-stage">
+              <div class="float-box" id="fb1" style="left:18%;top:35%;"></div>
+              <div class="float-box" id="fb2" style="left:32%;top:22%;"></div>
+              <div class="float-box" id="fb3" style="left:46%;top:30%;"></div>
+
+              <div class="truck">
+                <svg viewBox="0 0 380 200" width="100%" height="100%" preserveAspectRatio="xMidYMax meet">
+                  <defs>
+                    <linearGradient id="bedGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"  stop-color="#1c1c20"/>
+                      <stop offset="60%" stop-color="#101012"/>
+                      <stop offset="100%" stop-color="#070708"/>
+                    </linearGradient>
+                    <linearGradient id="cabGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"  stop-color="#181819"/>
+                      <stop offset="100%" stop-color="#0a0a0b"/>
+                    </linearGradient>
+                    <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"  stop-color="#e0bf6f" stop-opacity=".55"/>
+                      <stop offset="100%" stop-color="#a98735" stop-opacity=".18"/>
+                    </linearGradient>
+                    <radialGradient id="headlight" cx=".4" cy=".5" r=".6">
+                      <stop offset="0%"  stop-color="#fff6d4"/>
+                      <stop offset="40%" stop-color="#e0bf6f"/>
+                      <stop offset="100%" stop-color="#a98735" stop-opacity="0"/>
+                    </radialGradient>
+                    <radialGradient id="rim" cx=".4" cy=".4" r=".6">
+                      <stop offset="0%"  stop-color="#e0bf6f"/>
+                      <stop offset="55%" stop-color="#a98735"/>
+                      <stop offset="100%" stop-color="#5b461c"/>
+                    </radialGradient>
+                    <radialGradient id="tire" cx=".4" cy=".35" r=".75">
+                      <stop offset="0%"  stop-color="#1c1c20"/>
+                      <stop offset="100%" stop-color="#050506"/>
+                    </radialGradient>
+                  </defs>
+
+                  <ellipse cx="190" cy="172" rx="160" ry="6" fill="#000" opacity=".55"/>
+
+                  <!-- Tipper bed -->
+                  <path d="M22 38 L242 38 L252 28 L252 142 L22 142 Z"
+                        fill="url(#bedGrad)" stroke="#c5a14a" stroke-width="1.6"/>
+                  <path d="M22 38 L242 38 L252 28" fill="none" stroke="#e0bf6f" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="90"  y1="50" x2="90"  y2="138" stroke="#2a2a2e" stroke-width="1"/>
+                  <line x1="170" y1="50" x2="170" y2="138" stroke="#2a2a2e" stroke-width="1"/>
+                  <line x1="24"  y1="132" x2="250" y2="132" stroke="#c5a14a" stroke-width=".75" opacity=".6"/>
+                  <circle cx="30"  cy="60"  r="1.4" fill="#c5a14a" opacity=".75"/>
+                  <circle cx="30"  cy="120" r="1.4" fill="#c5a14a" opacity=".75"/>
+
+                  <!-- Cab + hood -->
+                  <path d="M256 58 L290 58 L308 88 L322 88 L332 128 L332 140 L256 140 Z"
+                        fill="url(#cabGrad)" stroke="#c5a14a" stroke-width="1.6" stroke-linejoin="round"/>
+                  <line x1="256" y1="58" x2="290" y2="58" stroke="#e0bf6f" stroke-width="1.6" stroke-linecap="round"/>
+                  <line x1="308" y1="88" x2="322" y2="88" stroke="#c5a14a" stroke-width="1" opacity=".85"/>
+                  <line x1="296" y1="96" x2="296" y2="140" stroke="#c5a14a" stroke-width=".8" opacity=".55"/>
+
+                  <!-- Windshield -->
+                  <path d="M262 64 L286 64 L302 86 L262 86 Z" fill="url(#glassGrad)"/>
+                  <path d="M264 66 L272 66 L266 84 L262 84 Z" fill="#fff" opacity=".18"/>
+                  <line x1="274" y1="84" x2="284" y2="66" stroke="#2a2a2e" stroke-width=".9"/>
+
+                  <!-- Door -->
+                  <path d="M264 92 L294 92 L294 138 L264 138 Z" fill="none" stroke="#1f1f23" stroke-width=".8"/>
+                  <rect x="278" y="112" width="10" height="2" rx="1" fill="#c5a14a" opacity=".75"/>
+                  <rect x="262" y="140" width="34" height="2" fill="#0a0a0c"/>
+
+                  <!-- Mirror -->
+                  <line x1="294" y1="66" x2="302" y2="60" stroke="#c5a14a" stroke-width=".8"/>
+                  <rect x="300" y="58" width="6" height="10" rx="1.5" fill="#1a1a1e" stroke="#c5a14a" stroke-width=".8"/>
+
+                  <!-- Grille -->
+                  <g stroke="#c5a14a" stroke-linecap="round">
+                    <line x1="322" y1="100" x2="330" y2="118" stroke-width=".7" opacity=".55"/>
+                    <line x1="322" y1="108" x2="331" y2="123" stroke-width=".7" opacity=".55"/>
+                    <line x1="322" y1="116" x2="331" y2="128" stroke-width=".7" opacity=".55"/>
+                  </g>
+
+                  <!-- Headlight -->
+                  <ellipse cx="326" cy="95" rx="5" ry="3.5" fill="url(#headlight)" transform="rotate(20 326 95)"/>
+                  <ellipse cx="326" cy="95" rx="2.5" ry="1.8" fill="#fff6d4" transform="rotate(20 326 95)"/>
+
+                  <!-- Bumper -->
+                  <path d="M324 132 L338 132 L338 142 L324 142 Z" fill="#1a1a1e" stroke="#c5a14a" stroke-width=".8"/>
+                  <line x1="326" y1="137" x2="336" y2="137" stroke="#c5a14a" stroke-width=".6" opacity=".5"/>
+
+                  <!-- Exhaust -->
+                  <rect x="248" y="32" width="5" height="30" rx="1" fill="#0a0a0c" stroke="#c5a14a" stroke-width=".8"/>
+                  <rect x="247" y="30" width="7" height="3" rx="1" fill="#1a1a1e" stroke="#c5a14a" stroke-width=".8"/>
+
+                  <!-- Chassis -->
+                  <rect x="18" y="142" width="320" height="6" fill="#050506"/>
+                  <line x1="20" y1="143" x2="336" y2="143" stroke="#c5a14a" stroke-width=".6" opacity=".4"/>
+
+                  <!-- Wheels -->
+                  <circle cx="68"  cy="160" r="15" fill="url(#tire)"/>
+                  <circle cx="68"  cy="160" r="9"  fill="url(#rim)"/>
+                  <circle cx="68"  cy="160" r="2.5" fill="#1a1a1e"/>
+                  <g stroke="#1a1a1e" stroke-width="1.4">
+                    <line x1="68" y1="152" x2="68" y2="168"/>
+                    <line x1="60" y1="160" x2="76" y2="160"/>
+                  </g>
+                  <circle cx="104" cy="160" r="15" fill="url(#tire)"/>
+                  <circle cx="104" cy="160" r="9"  fill="url(#rim)"/>
+                  <circle cx="104" cy="160" r="2.5" fill="#1a1a1e"/>
+                  <g stroke="#1a1a1e" stroke-width="1.4">
+                    <line x1="104" y1="152" x2="104" y2="168"/>
+                    <line x1="96"  y1="160" x2="112" y2="160"/>
+                  </g>
+                  <circle cx="300" cy="160" r="15" fill="url(#tire)"/>
+                  <circle cx="300" cy="160" r="9"  fill="url(#rim)"/>
+                  <circle cx="300" cy="160" r="2.5" fill="#1a1a1e"/>
+                  <g stroke="#1a1a1e" stroke-width="1.4">
+                    <line x1="300" y1="152" x2="300" y2="168"/>
+                    <line x1="292" y1="160" x2="308" y2="160"/>
+                  </g>
+
+                  <!-- Gold "L" monogram inside the bed -->
+                  <g transform="translate(118,56)" opacity=".55">
+                    <text x="0" y="58" fill="#c5a14a"
+                          font-family="'Playfair Display',serif" font-weight="800"
+                          font-size="68" letter-spacing="-2">L</text>
+                    <path d="M-6 67 Q 22 72 42 64" stroke="#c5a14a" stroke-width="1.6"
+                          fill="none" stroke-linecap="round" opacity=".75"/>
+                  </g>
+                </svg>
+
+                <!-- Gold junk pile clipped to bed -->
+                <div class="bed-clip">
+                  <div class="junk-pile" id="pile"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="load-ticks" role="tablist" aria-label="Load size">
+              <button class="load-tick" data-i="0">Single<small>1 item</small></button>
+              <button class="load-tick" data-i="1">Small<small>&#188; load</small></button>
+              <button class="load-tick active" data-i="2">Medium<small>&#189; load</small></button>
+              <button class="load-tick" data-i="3">Large<small>&#190; load</small></button>
+              <button class="load-tick" data-i="4">Full Truck<small>20 yd&#179;</small></button>
+            </div>
           </div>
-          <p class="pricing-examples">
-            <strong>Examples:</strong> chairs, small tables, boxes, lamps, small appliances
-          </p>
-          <a class="btn btn-gold" href="#estimate">Get Estimate</a>
-        </div>
 
-        <div class="pricing-card pricing-card-featured">
-          <span class="pricing-card-badge">Most Popular</span>
-          <h3>Medium Load</h3>
-          <p class="pricing-card-for">Best for several items or a partial room cleanout</p>
-          <div class="pricing-price">
-            <!-- PRICE: replace $XXX with your starting price -->
-            <span class="amount">$150-200</span>
-            <span class="label">starting price</span>
+          <!-- RIGHT: price display + add-ons + CTAs -->
+          <div class="calc-panel">
+            <div class="price-block">
+              <h3 class="price-tier-name" id="tierName">Medium Load</h3>
+              <p class="price-tier-for" id="tierFor">Best for a partial room or a couch plus a few extras.</p>
+              <div class="price-row">
+                <div class="price-display">
+                  <span class="currency">$</span><span class="digits" id="digits">289</span>
+                </div>
+                <span class="price-suffix">starting &middot; all-in</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="chips-label">Add tricky items</p>
+              <div class="chips">
+                <button class="chip" data-add="35">Mattress <span class="delta">+$35</span></button>
+                <button class="chip" data-add="45">Fridge <span class="delta">+$45</span></button>
+                <button class="chip" data-add="20">TV <span class="delta">+$20</span></button>
+                <button class="chip" data-add="55">Hot tub <span class="delta">+$55</span></button>
+                <button class="chip" data-add="25">Stairs <span class="delta">+$25</span></button>
+              </div>
+            </div>
+
+            <div class="calc-cta-row">
+              <a class="calc-cta" href="#estimate">Lock in this quote</a>
+              <a class="calc-cta calc-cta-secondary" href="sms:+17789384235">Text photo</a>
+            </div>
+
+            <p class="calc-footnote">
+              Final price confirmed on-site before any work begins. No hidden fees, ever.
+            </p>
           </div>
-          <p class="pricing-examples">
-            <strong>Examples:</strong> couches, mattresses, dressers, garage clutter, office furniture
-          </p>
-          <a class="btn btn-gold" href="#estimate">Request Estimate</a>
-        </div>
 
-        <div class="pricing-card">
-          <span class="pricing-card-badge">Large</span>
-          <h3>Large Load</h3>
-          <p class="pricing-card-for">Best for full cleanouts or bulky multi-item removal</p>
-          <div class="pricing-price">
-            <span class="amount">$300-400</span>
-            <span class="label">quote provided upfront</span>
-          </div>
-          <p class="pricing-examples">
-            <strong>Examples:</strong> garage cleanouts, basement cleanouts, renovation debris, property cleanouts
-          </p>
-          <a class="btn btn-gold" href="#estimate">Get Custom Quote</a>
         </div>
-
-        <!-- "Not Sure?" Wide Card -->
-        <div class="pricing-card pricing-card-wide">
-          <div class="pricing-card-wide-copy">
-            <h3>Not Sure What Size You Need?</h3>
-            <p>Send us a few photos and we'll help you figure out the load size and give you a fast estimate — no commitment needed.</p>
-          </div>
-          <!-- PHONE: replace sms:+16040000000 -->
-          <a class="btn btn-outline" href="sms:+17789384235">Text a Photo</a>
-        </div>
-
-      </div><!-- /pricing-cards -->
+      </div><!-- /estimator-wrap -->
 
       <!-- Guarantee -->
       <p class="pricing-guarantee">
-        &#10003;&nbsp; Final pricing is confirmed upfront before any work begins. Labour, loading, hauling, and disposal are included unless special handling is required.
+        &#10003;&nbsp; Final pricing is confirmed upfront before any work begins. Labour, loading, hauling, and disposal are all included unless special handling is required.
       </p>
 
       <!-- What's Included / Extra Costs -->
@@ -182,18 +574,13 @@
           </p>
         </div>
 
-      </div><!-- /pricing-meta-grid -->
+      </div>
 
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════════════════════════
        ESTIMATE FORM
-       NETLIFY FORMS SETUP:
-       - When deployed to Netlify, the form is handled automatically.
-       - Submissions appear in Netlify Dashboard → Forms → "estimate".
-       - To receive email notifications, go to Forms → Notifications.
-       - To test: deploy to Netlify and submit the form once.
        ══════════════════════════════════════════════════════════════ -->
   <section class="section section-dark" id="estimate">
     <div class="container">
@@ -213,9 +600,7 @@
           data-netlify="true"
           netlify-honeypot="bot-field"
         >
-          <!-- Required by Netlify Forms -->
           <input type="hidden" name="form-name" value="estimate" />
-          <!-- Honeypot anti-spam — keep hidden -->
           <p hidden><label>Don't fill this out: <input name="bot-field" /></label></p>
 
           <div class="form-row">
@@ -224,7 +609,6 @@
               <input id="name" name="name" type="text" placeholder="Your full name" autocomplete="name" required />
             </div>
             <div class="form-group">
-              <!-- This is the CUSTOMER'S phone field -->
               <label for="phone">Phone <span class="req">*</span></label>
               <input id="phone" name="phone" type="tel" placeholder="(604) 000-0000" autocomplete="tel" required />
             </div>
@@ -236,7 +620,6 @@
               <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
             </div>
             <div class="form-group">
-              <!-- AREAS: customer's city helps you know where to dispatch -->
               <label for="city">City <span class="req">*</span></label>
               <input id="city" name="city" type="text" placeholder="e.g. North Vancouver" required />
             </div>
@@ -251,13 +634,14 @@
 
           <div class="form-row">
             <div class="form-group">
-              <!-- LOAD SIZES: adjust these options to match your pricing tiers -->
               <label for="load_size">Approximate load size <span class="req">*</span></label>
               <select id="load_size" name="load_size" required>
                 <option value="" disabled selected>Select a load size</option>
-                <option value="small">Small pickup (1–3 items)</option>
-                <option value="medium">Medium load (several items / partial room)</option>
-                <option value="large">Large load (full cleanout)</option>
+                <option value="single">Single item</option>
+                <option value="small">Small load (&#188; truck)</option>
+                <option value="medium">Medium load (&#189; truck)</option>
+                <option value="large">Large load (&#190; truck)</option>
+                <option value="full">Full truck</option>
                 <option value="unsure">Not sure — help me estimate</option>
               </select>
             </div>
@@ -274,7 +658,6 @@
             <input id="photo" name="photo" type="file" accept="image/*" multiple />
             <p class="field-note">
               Or text photos to
-              <!-- PHONE: replace (604) 000-0000 and sms:+16040000000 -->
               <a href="sms:+17789384235" style="color:var(--gold)">(778) 938-4235</a>
               for the fastest quote.
             </p>
@@ -285,7 +668,7 @@
           </button>
 
         </form>
-      </div><!-- /estimate-form-section -->
+      </div>
 
     </div>
   </section>
@@ -296,7 +679,6 @@
       <h2>Prefer to Call or Text?</h2>
       <p>We're available Mon–Sat. Quick responses guaranteed.</p>
       <div class="cta-actions">
-        <!-- PHONE: replace tel:+16040000000 and sms:+16040000000 -->
         <a class="btn btn-gold btn-lg" href="tel:+17789384235">Call (778) 938-4235</a>
         <a class="btn btn-outline btn-lg" href="sms:+17789384235">Text a Photo</a>
       </div>
@@ -317,11 +699,8 @@
         Premium junk removal across the Lower Mainland. Fast, reliable, and upfront pricing you can count on.
       </p>
       <div class="footer-contact-links">
-        <!-- PHONE: replace (604) 000-0000 and tel:+16040000000 -->
         <a href="tel:+17789384235">(778) 938-4235</a>
-        <!-- EMAIL: replace info@lavishjunkremoval.com -->
         <a href="mailto:info@lavishjunkremoval.com">info@lavishjunkremoval.com</a>
-        <!-- HOURS: update as needed -->
         <span>Mon–Sat &nbsp;11:00 AM – 8:00 PM</span>
       </div>
     </div>
@@ -346,7 +725,6 @@
         <li>Property Cleanouts</li>
       </ul>
     </div>
-    <!-- SERVICE AREAS: update as coverage changes -->
     <div>
       <h4>Areas Served</h4>
       <ul>
@@ -369,7 +747,6 @@
 
 <!-- MOBILE BOTTOM BAR -->
 <div class="mobile-bar" role="navigation" aria-label="Quick contact">
-  <!-- PHONE: replace tel:+16040000000 -->
   <a class="mobile-bar-btn mobile-bar-call" href="tel:+17789384235">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.13 1.01.37 2 .72 2.95a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.13-1.13a2 2 0 012.11-.45c.95.35 1.94.59 2.95.72A2 2 0 0122 14.92v2z"/></svg>
     Call Now
@@ -381,5 +758,75 @@
 </div>
 
 <script src="script.js"></script>
+
+<!-- ── Pricing Calculator Logic ── -->
+<script>
+  const TIERS = [
+    { name: "Single Item",  for: "One piece — couch, mattress, fridge, or mower.",         price:  89, pile:  14 },
+    { name: "Small Load",   for: "A handful of items or a closet's worth of stuff.",         price: 179, pile:  38 },
+    { name: "Medium Load",  for: "Partial room or a couch plus a few extras.",               price: 289, pile:  65 },
+    { name: "Large Load",   for: "A garage or full bedroom cleared in one go.",              price: 429, pile:  92 },
+    { name: "Full Truck",   for: "Estate, large reno debris, or a complete cleanout.",       price: 589, pile: 118 }
+  ];
+  const FLOATS = [[], ["fb1"], ["fb1","fb2"], ["fb1","fb2","fb3"], ["fb1","fb2","fb3"]];
+
+  let current = 2, added = 0;
+  const digitsEl = document.getElementById("digits");
+  let priceTimer = null;
+
+  function renderPrice(value, animate) {
+    if (!animate) { digitsEl.textContent = value; return; }
+    if (digitsEl.textContent === String(value)) return;
+    digitsEl.classList.add("swap");
+    clearTimeout(priceTimer);
+    priceTimer = setTimeout(() => {
+      digitsEl.textContent = value;
+      digitsEl.classList.remove("swap");
+    }, 260);
+  }
+
+  function render(initial) {
+    const t = TIERS[current];
+    document.getElementById("tierName").textContent = t.name;
+    document.getElementById("tierFor").textContent  = t.for;
+    renderPrice(t.price + added, !initial);
+    document.getElementById("pile").style.height    = t.pile + "%";
+    ["fb1","fb2","fb3"].forEach((id, idx) => {
+      const el = document.getElementById(id);
+      const on = FLOATS[current].includes(id);
+      el.style.opacity         = on ? ".9" : "0";
+      el.style.transform       = on ? "translateY(0)" : "translateY(8px)";
+      el.style.transitionDelay = on ? (idx * 0.08) + "s" : "0s";
+    });
+    document.querySelectorAll(".load-tick").forEach(b =>
+      b.classList.toggle("active", Number(b.dataset.i) === current)
+    );
+  }
+  render(true);
+
+  document.querySelectorAll(".load-tick").forEach(b =>
+    b.addEventListener("click", () => { current = Number(b.dataset.i); render(false); })
+  );
+  document.querySelectorAll(".chip").forEach(c =>
+    c.addEventListener("click", () => {
+      const v = Number(c.dataset.add);
+      const on = c.classList.toggle("on");
+      added += on ? v : -v;
+      render(false);
+    })
+  );
+
+  // Auto-demo until user interacts
+  let demo = 2;
+  let demoTimer = setInterval(() => {
+    demo = (demo + 1) % TIERS.length;
+    current = demo;
+    render(false);
+  }, 2600);
+  ["click","touchstart","mousemove"].forEach(ev =>
+    document.addEventListener(ev, () => { clearInterval(demoTimer); demoTimer = null; }, { once: true })
+  );
+</script>
+
 </body>
 </html>
