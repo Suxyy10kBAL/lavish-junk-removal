@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Page not found — Lavish Junk Removal" />
+  <meta name="robots" content="noindex" />
+  <title>Page Not Found | Lavish Junk Removal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <style>
+    .not-found-section {
+      background: var(--bg);
+      color: var(--text-light);
+      min-height: calc(100vh - 76px - 74px);
+      display: flex;
+      align-items: center;
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .not-found-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 60% at 50% 50%,
+                  rgba(197, 161, 74, 0.07), transparent 65%);
+      pointer-events: none;
+    }
+    .not-found-inner {
+      text-align: center;
+      max-width: 560px;
+      margin-inline: auto;
+      position: relative;
+    }
+    .not-found-code {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(5rem, 18vw, 9rem);
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .not-found-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .not-found-sub {
+      color: #9898a8;
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 42ch;
+      margin: 0 auto 2.25rem;
+    }
+    .not-found-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .not-found-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      justify-content: center;
+      font-size: 0.88rem;
+    }
+    .not-found-links a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+    .not-found-links a:hover {
+      color: var(--gold-light);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-inner">
+
+    <a href="index.html" class="logo" aria-label="Lavish Junk Removal — Home">
+      <span class="logo-mark">Lavish</span>
+      <span class="logo-sub">Junk Removal</span>
+    </a>
+
+    <button class="menu-toggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="services.html">Services</a>
+      <a href="services.html#what-we-remove">What We Remove</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#areas">Areas Served</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-outline-dark btn-sm" href="tel:+17789384235">Call Now</a>
+      <a class="btn btn-gold btn-sm" href="pricing.html#estimate">Get Estimate</a>
+    </div>
+
+  </div>
+</header>
+
+<main>
+  <section class="not-found-section">
+    <div class="container not-found-inner">
+
+      <span class="not-found-code" aria-hidden="true">404</span>
+      <h1 class="not-found-title">Page Not Found</h1>
+      <p class="not-found-sub">
+        Looks like this page got hauled away. Let's get you back somewhere useful.
+      </p>
+
+      <div class="not-found-actions">
+        <a class="btn btn-gold btn-lg" href="pricing.html#estimate">Get a Free Estimate</a>
+        <a class="btn btn-outline btn-lg" href="index.html">Back to Home</a>
+      </div>
+
+      <nav class="not-found-links" aria-label="Quick links">
+        <a href="pricing.html">Pricing</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="tel:+17789384235">(778) 938-4235</a>
+      </nav>
+
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="logo-mark">Lavish</span>
+        <span class="logo-sub" style="color:#d0d0d8">Junk Removal</span>
+      </div>
+      <p class="footer-desc">
+        Premium junk removal across the Lower Mainland. Fast, reliable, and upfront pricing you can count on.
+      </p>
+      <div class="footer-contact-links">
+        <a href="tel:+17789384235">(778) 938-4235</a>
+        <a href="mailto:info@lavishjunkremoval.com">info@lavishjunkremoval.com</a>
+        <span>Mon–Sat &nbsp;11:00 AM – 8:00 PM</span>
+      </div>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pricing.html">Pricing &amp; Estimate</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html#what-we-remove">What We Remove</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li>Residential Junk Removal</li>
+        <li>Furniture Removal</li>
+        <li>Appliance Removal</li>
+        <li>Garage Cleanouts</li>
+        <li>Renovation Debris</li>
+        <li>Property Cleanouts</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Areas Served</h4>
+      <ul>
+        <li>North Vancouver</li>
+        <li>West Vancouver</li>
+        <li>Vancouver</li>
+        <li>Burnaby</li>
+        <li>Coquitlam</li>
+        <li>Port Moody</li>
+        <li>Surrounding areas</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span class="js-year">2025</span> Lavish Junk Removal. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM BAR -->
+<div class="mobile-bar" role="navigation" aria-label="Quick contact">
+  <a class="mobile-bar-btn mobile-bar-call" href="tel:+17789384235">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.18 2 2 0 012.06 0h3a2 2 0 012 1.72c.13 1.01.37 2 .72 2.95a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.13-1.13a2 2 0 012.11-.45c.95.35 1.94.59 2.95.72A2 2 0 0122 14.92v2z"/></svg>
+    Call Now
+  </a>
+  <a class="mobile-bar-btn mobile-bar-estimate" href="pricing.html#estimate">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Get Estimate
+  </a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

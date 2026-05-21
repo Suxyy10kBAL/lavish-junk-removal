@@ -28,6 +28,12 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# Custom 404 page
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404
+
 # Netlify form detection — ensure the estimate form on pricing.html is found
 [build.processing]
   skip_processing = false
