@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 24px; background: #fafafa; font-family: var(--font-sans); }
+  .card { background: #fff; border-radius: 16px; padding: 24px; display:flex; gap:14px; }
+  .chip { flex:1; padding:18px 16px; border-radius:12px; display:flex; flex-direction:column; gap:6px; }
+  .name { font-weight:700; font-size:13px; }
+  .hex { font-size:11px; font-family:ui-monospace,Menlo,monospace; opacity:.75; }
+  .role { font-size:11px; opacity:.65; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="chip" style="background:rgba(46,125,50,.10); color:#9dd49d; border:1px solid rgba(46,125,50,.30);">
+    <div class="name">Success / Guarantee</div>
+    <div class="hex">#2E7D32</div>
+    <div class="role">Used on dark CTAs only</div>
+  </div>
+  <div class="chip" style="background:rgba(224,160,48,.12); color:#e0a030; border:1px solid rgba(224,160,48,.35);">
+    <div class="name">Amber / Extra Cost</div>
+    <div class="hex">#E0A030</div>
+    <div class="role">Pricing "extras" notes</div>
+  </div>
+  <div class="chip" style="background:#c5a14a; color:#141410;">
+    <div class="name">Gold (semantic accent)</div>
+    <div class="hex">#C5A14A</div>
+    <div class="role">All primary actions & links</div>
+  </div>
+</div>
+</body>
+</html>

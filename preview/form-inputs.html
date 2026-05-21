@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { margin: 0; padding: 24px; background: #0f0f10; font-family: Inter,sans-serif; color:#f2f2f2; }
+  .form { background:#1a1a1e; border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:20px; max-width:560px; display:flex; flex-direction:column; gap:14px; }
+  label { font-size:.85rem; font-weight:500; color:#e0e0e8; display:block; margin-bottom:6px; }
+  .req { color:#c5a14a; font-weight:700; }
+  input, select, textarea { width:100%; background:#18181c; border:1px solid rgba(255,255,255,.16); border-radius:10px; color:#f2f2f2; font-family:inherit; font-size:.95rem; padding:.7rem .9rem; box-sizing:border-box; }
+  input:focus, select:focus { outline:2px solid rgba(197,161,74,.65); outline-offset:1px; border-color:transparent; }
+  ::placeholder { color:#55555f; }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .submit { background:linear-gradient(135deg,#c5a14a,#e0bf6f); color:#141410; border:none; border-radius:10px; padding:.95rem; font-weight:600; font-size:1rem; cursor:pointer; }
+  .field-note { font-size:.75rem; color:#66667a; margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="form">
+  <div class="row">
+    <div><label>Full Name <span class="req">*</span></label><input type="text" placeholder="Jane Doe"></div>
+    <div><label>Phone <span class="req">*</span></label><input type="tel" placeholder="(604) 555-0100"></div>
+  </div>
+  <div><label>Load Size</label>
+    <select><option>Medium Load — partial room</option></select>
+  </div>
+  <div><label>Items <span class="req">*</span></label><input type="text" placeholder="Couch, dresser, ~10 boxes"><div class="field-note">Short description; we'll follow up if we need more detail.</div></div>
+  <button class="submit">Request Free Estimate</button>
+</div>
+</body>
+</html>

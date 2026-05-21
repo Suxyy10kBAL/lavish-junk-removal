@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { margin: 0; padding: 28px; background: #0f0f10; font-family: Inter,sans-serif; color:#f2f2f2; }
+  .card { background: #141416; border-radius: 16px; padding: 32px; display:flex; flex-direction:column; gap:14px; }
+  .row { display:flex; align-items:center; gap:14px; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; padding:.82rem 1.5rem; font-size:.95rem; font-weight:600; border-radius:999px; border:1.5px solid transparent; cursor:pointer; font-family:inherit; }
+  .gold { background: linear-gradient(135deg,#c5a14a 0%,#e0bf6f 100%); color:#141410; box-shadow: 0 6px 18px rgba(197,161,74,.32); }
+  .outline { border-color: rgba(255,255,255,.42); color:#f2f2f2; background:transparent; }
+  .outline-dark { border-color: rgba(24,24,27,.3); color:#18181b; background:#fff; }
+  .lg { padding:1rem 2rem; font-size:1.05rem; }
+  .sm { padding:.62rem 1.15rem; font-size:.88rem; }
+  .label { font-size:11px; opacity:.5; font-family:ui-monospace,Menlo,monospace; min-width:90px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="row"><div class="label">.btn-gold</div><button class="btn gold sm">Get Estimate</button><button class="btn gold">Get Estimate</button><button class="btn gold lg">Get Free Estimate</button></div>
+  <div class="row"><div class="label">.btn-outline</div><button class="btn outline sm">Call Now</button><button class="btn outline">Call Now</button><button class="btn outline lg">Text a Photo</button></div>
+  <div class="row"><div class="label">.btn-outline-dark</div><button class="btn outline-dark sm">Call Now</button><button class="btn outline-dark">See All Services</button></div>
+</div>
+</body>
+</html>

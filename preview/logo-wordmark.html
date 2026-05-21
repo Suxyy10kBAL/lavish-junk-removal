@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; padding: 24px; background: #0f0f10; font-family: Inter,sans-serif; color:#fff; }
+  .card { background:#141416; border-radius:16px; padding:28px; display:flex; flex-direction:column; gap:18px; }
+  .row { display:flex; align-items:baseline; gap:.3rem; }
+  .mark { font-family:"Playfair Display",serif; font-size:2rem; font-weight:800; color:#a98735; letter-spacing:-.01em; }
+  .sub { font-weight:700; font-size:1.25rem; letter-spacing:-.01em; }
+  .light { color:#fff; }
+  .dark { color:#1a1a1a; }
+  .panel-light { background:#fff; border-radius:10px; padding:14px 20px; }
+  .label { font-size:11px; color:#666; font-family:ui-monospace,Menlo,monospace; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div>
+    <div class="label" style="color:#888;">Wordmark on dark</div>
+    <div class="row" style="margin-top:6px;"><span class="mark">Lavish</span><span class="sub light">Junk Removal</span></div>
+  </div>
+  <div class="panel-light">
+    <div class="label">Wordmark on light</div>
+    <div class="row" style="margin-top:6px;"><span class="mark">Lavish</span><span class="sub dark">Junk Removal</span></div>
+  </div>
+</div>
+</body>
+</html>
