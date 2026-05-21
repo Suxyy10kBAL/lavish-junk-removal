@@ -1,0 +1,35 @@
+# Netlify configuration for Lavish Junk Removal
+# Plain HTML/CSS/JS static site — no build step required
+
+[build]
+  publish = "."
+  command = ""
+
+# Force HTML pages to never be served stale from Netlify's CDN
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# CSS & JS: short cache, revalidate frequently
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+# Images: longer cache (content doesn't change often)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Netlify form detection — ensure the estimate form on pricing.html is found
+[build.processing]
+  skip_processing = false
+[build.processing.html]
+  pretty_urls = true
