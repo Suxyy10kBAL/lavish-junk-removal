@@ -1,0 +1,9 @@
+# Design system reference files — not part of the deployed website
+scraps/
+preview/
+ui_kits/
+logo/
+uploads/
+SKILL.md
+colors_and_type.css
+README.md

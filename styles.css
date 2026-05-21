@@ -1483,3 +1483,113 @@ input[type="file"]::file-selector-button {
   .logo-sub { display: none; }
   .mobile-bar-btn { font-size: 0.87rem; }
 }
+
+/* ─────────────────────────────────────────────────────────────────
+   25. ANIMATIONS & TRANSITIONS
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── Header scroll shadow ──────────────────────────────────────── */
+.site-header {
+  transition: box-shadow 0.35s ease, background-color 0.35s ease;
+}
+.site-header.is-scrolled {
+  box-shadow: 0 2px 28px rgba(0, 0, 0, 0.13);
+}
+
+/* ── Why-Choose-Us card hover ──────────────────────────────────── */
+.why-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease,
+              border-color 0.22s ease;
+}
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: rgba(197, 161, 74, 0.28);
+}
+.why-icon {
+  transition: background 0.22s ease, border-color 0.22s ease;
+}
+.why-card:hover .why-icon {
+  background: rgba(197, 161, 74, 0.18);
+  border-color: rgba(197, 161, 74, 0.5);
+}
+
+/* ── How-It-Works step card hover ─────────────────────────────── */
+.step-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease,
+              border-color 0.22s ease;
+}
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: rgba(197, 161, 74, 0.2);
+}
+.step-num {
+  transition: border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.step-card:hover .step-num {
+  border-color: rgba(197, 161, 74, 0.6);
+  box-shadow: 0 0 0 5px rgba(197, 161, 74, 0.08);
+}
+
+/* ── Review card hover ─────────────────────────────────────────── */
+.review-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+/* ── Trust badge hover ─────────────────────────────────────────── */
+.trust-badge {
+  transition: border-color 0.22s ease, transform 0.22s ease,
+              background 0.22s ease;
+}
+.trust-badge:hover {
+  border-color: rgba(197, 161, 74, 0.65);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Pricing meta card hover ───────────────────────────────────── */
+.pricing-meta-card {
+  transition: border-color 0.22s ease;
+}
+.pricing-meta-card:hover {
+  border-color: rgba(197, 161, 74, 0.3);
+}
+
+/* ── Button gold — lift a little more ─────────────────────────── */
+.btn-gold:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Contact card icon hover glow ──────────────────────────────── */
+.contact-card-icon {
+  transition: background 0.22s ease, border-color 0.22s ease;
+}
+.contact-card:hover .contact-card-icon {
+  background: rgba(197, 161, 74, 0.2);
+  border-color: rgba(197, 161, 74, 0.5);
+}
+
+/* ── Scroll-reveal ─────────────────────────────────────────────── */
+/*
+ * Elements get .reveal added by JS (initReveal).
+ * body.anim-ready enables the effect; ensures no FOUC if JS is slow.
+ * @media wrapper honours prefers-reduced-motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  body.anim-ready .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease,
+                transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  body.anim-ready .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

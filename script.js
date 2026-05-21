@@ -45,6 +45,85 @@ if (menuToggle && nav) {
   });
 }
 
+// ── Header scroll shadow ──────────────────────────────────────────
+(function initHeaderScroll() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const tick = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+  window.addEventListener("scroll", tick, { passive: true });
+  tick(); // apply immediately on load
+})();
+
+// ── Scroll-reveal animations ──────────────────────────────────────
+(function initReveal() {
+  // Grid parents whose direct children should stagger
+  const STAGGER_GRIDS = [
+    ".services-grid",
+    ".why-grid",
+    ".steps-grid",
+    ".reviews-grid",
+    ".pricing-cards",
+    ".contact-options-grid",
+    ".trust-badges",
+    ".pricing-meta-grid",
+  ];
+
+  // Standalone elements (revealed individually, no stagger)
+  const SOLO_SELECTORS = [
+    ".section-head",
+    ".section-head-center",
+    ".pricing-intro-box",
+    ".estimator-wrap",
+    ".page-hero h1",
+    ".page-hero p",
+    ".cta-banner h2",
+    ".cta-banner p",
+    ".cta-banner .cta-actions",
+    ".contact-info-row",
+  ];
+
+  // Signal CSS the animation system is live
+  document.body.classList.add("anim-ready");
+
+  // Mark staggered grid children
+  STAGGER_GRIDS.forEach((sel) => {
+    const parent = document.querySelector(sel);
+    if (!parent) return;
+    Array.from(parent.children).forEach((child, i) => {
+      child.classList.add("reveal");
+      child.style.setProperty("--reveal-delay", `${i * 75}ms`);
+    });
+  });
+
+  // Mark solo elements (skip if already marked as staggered)
+  SOLO_SELECTORS.forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      if (!el.classList.contains("reveal")) el.classList.add("reveal");
+    });
+  });
+
+  // Fallback: reveal everything immediately in browsers without IO support
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  // Watch everything
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -32px 0px" }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+})();
+
 // ── Estimate form ─────────────────────────────────────────────────
 // On Netlify, data-netlify="true" means Netlify intercepts the POST
 // and handles everything — no JS needed for production.
@@ -71,7 +150,7 @@ estimateForms.forEach((form) => {
         <p style="margin-top:0.75rem">
           Need us faster?
           <!-- PHONE: update href and text below -->
-          <a href="tel:++17789384235" style="color:var(--gold)">(778) 938-4235</a>
+          <a href="tel:+17789384235" style="color:var(--gold)">(778) 938-4235</a>
         </p>
       </div>`;
   });
